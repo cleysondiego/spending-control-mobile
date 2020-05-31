@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SpendingControl</string>
+
+    <string name="img_logo">Spending Control Logo</string>
+    <string name="etLogin">Digite o seu email</string>
+    <string name="etPassword">Digite a sua senha</string>
+    <string name="btnLogin">Acessar</string>
+    <string name="btnRegister">Registrar-se</string>
+
+</resources>
