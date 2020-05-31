@@ -35,28 +35,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        boolean isEmailValid = validateField(etLogin);
-        if (isEmailValid) {
-            boolean isPasswordValid = validateField(etPassword);
-            if (isPasswordValid) {
-                int id = v.getId();
-                switch (id) {
-                    case R.id.btnLogin:
-                    case R.id.etPassword:
-                        // TODO: Call method to login
-                        break;
-                    case R.id.btnRegister:
-                        // TODO: Call method to register
-                        break;
-                    default:
-                        break;
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnLogin:
+            case R.id.etPassword:
+                boolean isEmailValid = validateField(etLogin);
+                if (isEmailValid) {
+                    boolean isPasswordValid = validateField(etPassword);
+                    if (isPasswordValid) {
+                        doLogin();
+                    }
                 }
-            }
+                break;
+            case R.id.btnRegister:
+                goToRegisterActivity();
+                break;
+            default:
+                break;
         }
     }
 
     private void doLogin() {
-        nextActivity(); // TODO: If login succeeded, call nextActivity.
+        goToMainActivity(); // TODO: If login succeeded, call nextActivity.
     }
 
     private boolean validateField(EditText field) {
@@ -72,9 +72,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-    public void nextActivity() {
+    public void goToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void goToRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 }
