@@ -6,15 +6,17 @@ import android.content.SharedPreferences;
 public class SharedPreferencesUtils {
     private static final String LOGGED_IN = "logged_in";
     private static final String USER_TOKEN = "user_token";
+    private static final String USER_NAME = "user_name";
 
     private static SharedPreferences getPreferences(Context context) {
         return context.getSharedPreferences("spendingcontrolbr", Context.MODE_PRIVATE);
     }
 
-    public void setLoggedIn(Context context, boolean loggedIn, String token) {
+    public void setLoggedIn(Context context, boolean loggedIn, String token, String name) {
         SharedPreferences.Editor editor = getPreferences(context).edit();
         editor.putBoolean(LOGGED_IN, loggedIn);
         editor.putString(USER_TOKEN, token);
+        editor.putString(USER_NAME, name);
         editor.apply();
     }
 

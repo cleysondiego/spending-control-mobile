@@ -2,15 +2,22 @@ package br.com.spendingcontrol.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 import br.com.spendingcontrol.R;
+import br.com.spendingcontrol.utils.ApiRequest;
+import br.com.spendingcontrol.utils.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+    private Context context;
 
     EditText etLogin;
     EditText etPassword;
@@ -18,10 +25,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnLogin;
     Button btnRegister;
 
+    private ApiRequest apiRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        context = getApplicationContext();
 
         etLogin = findViewById(R.id.etLogin);
         etPassword = findViewById(R.id.etPassword);
@@ -31,6 +42,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
+
+        apiRequest = new ApiRequest();
     }
 
     @Override
@@ -56,7 +69,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void doLogin() {
-        goToMainActivity(); // TODO: If login succeeded, call nextActivity.
+        final HashMap<String, String> headers = new HashMap<>();
+        headers.put(ApiRequest.CONTENT_TYPE, "application/json");
+
+        LoginRequest loginRequest = new LoginRequest();
+
+        loginRequest.setEmail(etLogin.getText().toString());
+        loginRequest.setPassword(etPassword.getText().toString());
+
+        final String requestParams = loginRequest.getEventString();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                apiRequest.post(ApiRequest.BASE_URL + "/sessions", headers, requestParams, new ApiRequest.OnResponse() {
+                    @Override
+                    public void onResponse(int statusCode, byte[] response) {
+//                        Toast.makeText(context, "Deu sucesso no login.", Toast.LENGTH_SHORT).show();
+//                        goToMainActivity();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode) {
+                        if (statusCode == 400) {
+                            Toast.makeText(context, "Usuário inválido e/ou senha incorreta!", Toast.LENGTH_SHORT).show();
+                        }
+//                        Toast.makeText(context, "Erro desconhecido, tente novamente!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        thread.start();
     }
 
     private boolean validateField(EditText field) {
