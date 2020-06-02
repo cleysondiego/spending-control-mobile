@@ -1,6 +1,8 @@
 package br.com.spendingcontrol.usecases;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,20 +49,30 @@ public class LoginUseCase extends UseCaseAbstract {
 
             apiRequest.post(ApiRequest.BASE_URL + "/sessions", headers, requestParams, new ApiRequest.OnResponse() {
                 @Override
-                public void onResponse(int statusCode, byte[] response) {
-                    try {
-                        LoginResponseStructure loginResponseStructure = new LoginResponseStructure().fromJson(new JSONObject(new String(response)));
-                        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils();
-                        sharedPreferencesUtils.setLoggedIn(context, true, loginResponseStructure.getToken(), loginResponseStructure.getUser().getName());
-                        callback.onSuccess();
-                    } catch (JSONException jsonException) {
-                        callback.onFailure(100);
-                    }
+                public void onResponse(final int statusCode, final byte[] response) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                LoginResponseStructure loginResponseStructure = new LoginResponseStructure().fromJson(new JSONObject(new String(response)));
+                                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils();
+                                sharedPreferencesUtils.setLoggedIn(context, true, loginResponseStructure.getToken(), loginResponseStructure.getUser().getName());
+                                callback.onSuccess();
+                            } catch (JSONException jsonException) {
+                                callback.onFailure(100);
+                            }
+                        }
+                    });
                 }
 
                 @Override
-                public void onFailure(int statusCode) {
-                    callback.onFailure(statusCode);
+                public void onFailure(final int statusCode) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onFailure(statusCode);
+                        }
+                    });
                 }
             });
         } catch (Exception exception) {

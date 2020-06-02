@@ -85,27 +85,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginUseCase.setCallback(new LoginUseCase.OnLoginCallback() {
             @Override
             public void onSuccess() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT).show();
-                        goToMainActivity();
-                    }
-                });
+                Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT).show();
+                goToMainActivity();
             }
 
             @Override
             public void onFailure(final int statusCode) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (statusCode == 400) {
-                            Toast.makeText(context, "Usuário ou senha incorreto!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Ocorreu um erro durante o login, tente novamente! STATUS CODE: " + statusCode, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                if (statusCode == 400) {
+                    Toast.makeText(context, "Usuário e/ou senha incorretos!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Ocorreu um erro durante o login, tente novamente! STATUS CODE: " + statusCode, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
