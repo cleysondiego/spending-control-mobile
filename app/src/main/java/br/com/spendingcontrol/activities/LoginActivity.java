@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void run() {
                         Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT).show();
+                        goToMainActivity();
                     }
                 });
             }
