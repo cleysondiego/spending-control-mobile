@@ -27,4 +27,8 @@ public class SharedPreferencesUtils {
     public String getUserToken(Context context) {
         return getPreferences(context).getString(USER_TOKEN, "");
     }
+
+    public String getUserName(Context context) {
+        return getPreferences(context).getString(USER_NAME, "");
+    }
 }

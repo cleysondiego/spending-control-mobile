@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import br.com.spendingcontrol.R;
+import br.com.spendingcontrol.usecases.LoginUseCase;
+import br.com.spendingcontrol.usecases.ThreadExecutor;
 import br.com.spendingcontrol.utils.ApiRequest;
 import br.com.spendingcontrol.utils.LoginRequest;
 
@@ -69,38 +73,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void doLogin() {
-        final HashMap<String, String> headers = new HashMap<>();
-        headers.put(ApiRequest.CONTENT_TYPE, "application/json");
-
         LoginRequest loginRequest = new LoginRequest();
 
         loginRequest.setEmail(etLogin.getText().toString());
         loginRequest.setPassword(etPassword.getText().toString());
 
-        final String requestParams = loginRequest.getEventString();
+        ApiRequest apiRequest = new ApiRequest();
 
-        Thread thread = new Thread(new Runnable() {
+
+        LoginUseCase loginUseCase = new LoginUseCase(ThreadExecutor.getInstance(), context, apiRequest, loginRequest);
+        loginUseCase.setCallback(new LoginUseCase.OnLoginCallback() {
             @Override
-            public void run() {
-                apiRequest.post(ApiRequest.BASE_URL + "/sessions", headers, requestParams, new ApiRequest.OnResponse() {
+            public void onSuccess() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
-                    public void onResponse(int statusCode, byte[] response) {
-//                        Toast.makeText(context, "Deu sucesso no login.", Toast.LENGTH_SHORT).show();
-//                        goToMainActivity();
+                    public void run() {
+                        Toast.makeText(context, "Logado com sucesso!", Toast.LENGTH_SHORT).show();
                     }
+                });
+            }
 
+            @Override
+            public void onFailure(final int statusCode) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
-                    public void onFailure(int statusCode) {
+                    public void run() {
                         if (statusCode == 400) {
-                            Toast.makeText(context, "Usuário inválido e/ou senha incorreta!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Usuário ou senha incorreto!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Ocorreu um erro durante o login, tente novamente! STATUS CODE: " + statusCode, Toast.LENGTH_SHORT).show();
                         }
-//                        Toast.makeText(context, "Erro desconhecido, tente novamente!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
 
-        thread.start();
+        loginUseCase.execute();
     }
 
     private boolean validateField(EditText field) {
