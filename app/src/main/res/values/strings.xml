@@ -7,4 +7,8 @@
     <string name="btnLogin">Acessar</string>
     <string name="btnRegister">Registrar-se</string>
 
+    <!-- Register Screen -->
+    <string name="img_register">Register new account</string>
+    <string name="etConfirmPassword">Confirme a sua senha</string>
+    <string name="btnConfirmRegister">Confirmar o cadastro</string>
 </resources>
