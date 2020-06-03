@@ -50,8 +50,13 @@ public class RegisterUseCase extends UseCaseAbstract {
                 }
 
                 @Override
-                public void onFailure(int statusCode) {
-                    callback.onFailure(statusCode);
+                public void onFailure(final int statusCode) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onFailure(statusCode);
+                        }
+                    });
                 }
             });
         } catch (Exception ignored) {

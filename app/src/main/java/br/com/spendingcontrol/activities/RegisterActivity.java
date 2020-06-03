@@ -39,17 +39,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(validateFields(etEmail)) {
-            if (validateFields(etRegPassword) && validateFields(etConfirmPassword)) {
-                if (validatePasswords(etRegPassword, etConfirmPassword)) {
-                    switch (v.getId()) {
-                        case R.id.btnRegister:
-                        case R.id.etConfirmPassword:
-                            registerUser();
-                            break;
-                        default:
-                            break;
-                    }
+        if (validateFields(etEmail) && validateFields(etRegPassword) && validateFields(etConfirmPassword)) {
+            if (validatePasswords(etRegPassword, etConfirmPassword)) {
+                switch (v.getId()) {
+                    case R.id.btnRegRegister:
+                    case R.id.etConfirmPassword:
+                        registerUser();
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -76,8 +74,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(int statusCode) {
                 if (statusCode == 400) {
                     Toast.makeText(getApplicationContext(), "Email já cadastrado", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Ocorreu um erro durante o cadastro, tente novamente! STATUS CODE: " + statusCode, Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getApplicationContext(), "Ocorreu um erro durante o cadastro, tente novamente!", Toast.LENGTH_SHORT).show();
             }
         });
 
