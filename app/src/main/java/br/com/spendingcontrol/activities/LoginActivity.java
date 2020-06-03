@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ApiRequest apiRequest = new ApiRequest();
 
-
         LoginUseCase loginUseCase = new LoginUseCase(ThreadExecutor.getInstance(), context, apiRequest, loginRequest);
         loginUseCase.setCallback(new LoginUseCase.OnLoginCallback() {
             @Override

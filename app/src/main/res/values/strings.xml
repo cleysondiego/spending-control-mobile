@@ -9,6 +9,7 @@
 
     <!-- Register Screen -->
     <string name="img_register">Register new account</string>
+    <string name="etName">Digite o seu nome</string>
     <string name="etConfirmPassword">Confirme a sua senha</string>
     <string name="btnConfirmRegister">Confirmar o cadastro</string>
 </resources>

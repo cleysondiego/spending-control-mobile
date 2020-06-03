@@ -58,7 +58,7 @@ public class LoginUseCase extends UseCaseAbstract {
                                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils();
                                 sharedPreferencesUtils.setLoggedIn(context, true, loginResponseStructure.getToken(), loginResponseStructure.getUser().getName());
                                 callback.onSuccess();
-                            } catch (JSONException jsonException) {
+                            } catch (JSONException ignored) {
                                 callback.onFailure(100);
                             }
                         }
@@ -75,7 +75,7 @@ public class LoginUseCase extends UseCaseAbstract {
                     });
                 }
             });
-        } catch (Exception exception) {
+        } catch (Exception ignored) {
             callback.onFailure(400);
         }
     }
