@@ -12,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.HashMap;
-
 import br.com.spendingcontrol.R;
 import br.com.spendingcontrol.usecases.LoginUseCase;
 import br.com.spendingcontrol.usecases.ThreadExecutor;
@@ -23,13 +21,13 @@ import br.com.spendingcontrol.utils.LoginRequest;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private Context context;
 
+    private ApiRequest apiRequest;
+
     EditText etLogin;
     EditText etPassword;
 
     Button btnLogin;
     Button btnRegister;
-
-    private ApiRequest apiRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +75,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         loginRequest.setEmail(etLogin.getText().toString());
         loginRequest.setPassword(etPassword.getText().toString());
-
-        ApiRequest apiRequest = new ApiRequest();
 
         LoginUseCase loginUseCase = new LoginUseCase(ThreadExecutor.getInstance(), context, apiRequest, loginRequest);
         loginUseCase.setCallback(new LoginUseCase.OnLoginCallback() {

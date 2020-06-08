@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import br.com.spendingcontrol.R;
 import br.com.spendingcontrol.utils.SharedPreferencesUtils;
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private boolean isLogged = false;
     private String userToken = "";
+
+    TextView txtBalanceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        txtBalanceNumber = findViewById(R.id.txtBalanceNumber);
+
+        txtBalanceNumber.setText("R$: 500");
     }
 
     @Override

@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">SpendingControl</string>
 
+    <!-- Login Activity -->
     <string name="img_logo">Spending Control Logo</string>
     <string name="etLogin">Digite o seu email</string>
     <string name="etPassword">Digite a sua senha</string>
     <string name="btnLogin">Acessar</string>
     <string name="btnRegister">Registrar-se</string>
 
-    <!-- Register Screen -->
+    <!-- Register Activity -->
     <string name="img_register">Register new account</string>
     <string name="etName">Digite o seu nome</string>
     <string name="etConfirmPassword">Confirme a sua senha</string>
     <string name="btnConfirmRegister">Confirmar o cadastro</string>
+
+    <!-- Main Activity -->
+    <string name="txtWelcome">Seja bem-vindo(a)!</string>
+    <string name="txtBalance">O seu saldo atual é de:</string>
+    <string name="txtBalanceNumber">0</string>
 </resources>
