@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         txtBalanceNumber = findViewById(R.id.txtBalanceNumber);
         listSpending = findViewById(R.id.listSpending);
+        floatingActionButton = findViewById(R.id.fab);
 
         listSpending.setOnItemClickListener(this);
         floatingActionButton.setOnClickListener(this);

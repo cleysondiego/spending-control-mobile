@@ -24,4 +24,15 @@
 
     <!-- Details Activity -->
     <string name="btnDelete">Deletar</string>
+
+    <!-- Add New Spend Activity -->
+    <string name="btnSave">Salvar</string>
+    <string name="etTitle">Digite o título</string>
+    <string name="etDescription">Digite a descrição</string>
+    <string name="etValue">Digite o valor</string>
+
+    <string-array name="type_array">
+        <item>Crédito</item>
+        <item>Débito</item>
+    </string-array>
 </resources>
