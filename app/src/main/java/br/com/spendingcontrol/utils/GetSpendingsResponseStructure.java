@@ -39,7 +39,7 @@ public class GetSpendingsResponseStructure {
     public static class Spendings implements Serializable {
         private String title;
         private String description;
-        private Integer value;
+        private Double value;
         private String type;
 
         public String getTitle() {
@@ -50,7 +50,7 @@ public class GetSpendingsResponseStructure {
             return description;
         }
 
-        public Integer getValue() {
+        public Double getValue() {
             return value;
         }
 
@@ -62,7 +62,7 @@ public class GetSpendingsResponseStructure {
             try {
                 this.title = jsonObject.getString("title");
                 this.description = jsonObject.getString("description");
-                this.value = jsonObject.getInt("value");
+                this.value = jsonObject.getDouble("value");
                 this.type = jsonObject.getString("type");
             } catch (JSONException e) {
                 e.printStackTrace();
