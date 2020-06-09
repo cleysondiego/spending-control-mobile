@@ -37,10 +37,15 @@ public class GetSpendingsResponseStructure {
     }
 
     public static class Spendings implements Serializable {
+        private String id;
         private String title;
         private String description;
         private Double value;
         private String type;
+
+        public String getId() {
+            return id;
+        }
 
         public String getTitle() {
             return title;
@@ -60,6 +65,7 @@ public class GetSpendingsResponseStructure {
 
         public Spendings fromJson(JSONObject jsonObject) {
             try {
+                this.id = jsonObject.getString("_id");
                 this.title = jsonObject.getString("title");
                 this.description = jsonObject.getString("description");
                 this.value = jsonObject.getDouble("value");

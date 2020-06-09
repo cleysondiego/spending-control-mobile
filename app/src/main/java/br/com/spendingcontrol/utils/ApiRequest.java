@@ -14,6 +14,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class ApiRequest {
     private static final String GET = "GET";
     private static final String POST = "POST";
+    private static final String DELETE = "DELETE";
 
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String BASE_URL = "https://spending-control-backend.herokuapp.com";
@@ -32,6 +33,10 @@ public class ApiRequest {
         request(POST, url, headers, requestParams, callback);
     }
 
+    public void delete(String url, HashMap<String, String> headers, String requestParams, OnResponse callback) {
+        request(DELETE, url, headers, requestParams, callback);
+    }
+
     private void request(String requestMethod, String url, HashMap<String, String> headers, String requestParams, OnResponse callback) {
         HttpsURLConnection connection = null;
 
@@ -46,7 +51,7 @@ public class ApiRequest {
                 }
             }
 
-            if (requestMethod.equals(GET)) {
+            if (requestMethod.equals(GET) || requestMethod.equals(DELETE)) {
                 connection.connect();
             }
 
