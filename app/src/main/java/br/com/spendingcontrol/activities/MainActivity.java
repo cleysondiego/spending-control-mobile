@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ import br.com.spendingcontrol.utils.ApiRequest;
 import br.com.spendingcontrol.utils.GetSpendingsResponseStructure;
 import br.com.spendingcontrol.utils.SharedPreferencesUtils;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     private Context context;
     private boolean isLogged = false;
     private String userToken = "";
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     TextView txtBalanceNumber;
     ListView listSpending;
+
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         listSpending = findViewById(R.id.listSpending);
 
         listSpending.setOnItemClickListener(this);
+        floatingActionButton.setOnClickListener(this);
 
         spendingsResponseStructure = new GetSpendingsResponseStructure();
 
@@ -89,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         goToDetailsActivity(parent, position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, AddNewSpendActivity.class);
+        startActivity(intent);
     }
 
     private void getDataFromSharedPreferences(Context context) {

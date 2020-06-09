@@ -13,7 +13,8 @@
         android:roundIcon="@drawable/coins"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.SpendingDetailsActivity"></activity>
+        <activity android:name=".activities.AddNewSpendActivity"></activity>
+        <activity android:name=".activities.SpendingDetailsActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
