@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class GetSpendingsResponseStructure {
         return this;
     }
 
-    public static class Spendings {
+    public static class Spendings implements Serializable {
         private String title;
         private String description;
         private Integer value;

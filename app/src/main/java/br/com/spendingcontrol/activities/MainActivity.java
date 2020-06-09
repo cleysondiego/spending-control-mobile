@@ -152,6 +152,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 spend = spendings;
             }
         }
-        
+
+        Intent intent = new Intent(this, SpendingDetailsActivity.class);
+        intent.putExtra("SPENDINGS_OBJECT", spend);
+        startActivity(intent);
     }
 }

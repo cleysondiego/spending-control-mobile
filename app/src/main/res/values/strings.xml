@@ -21,4 +21,7 @@
 
     <!-- Menu -->
     <string name="stringExit">Sair</string>
+
+    <!-- Details Activity -->
+    <string name="btnDelete">Deletar</string>
 </resources>
