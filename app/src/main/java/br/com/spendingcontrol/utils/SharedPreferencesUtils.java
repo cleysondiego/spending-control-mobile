@@ -20,6 +20,14 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    public void setLogoff(Context context) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.putBoolean(LOGGED_IN, false);
+        editor.putString(USER_TOKEN, "");
+        editor.putString(USER_NAME, "");
+        editor.apply();
+    }
+
     public boolean getLoggedStatus(Context context) {
         return getPreferences(context).getBoolean(LOGGED_IN, false);
     }

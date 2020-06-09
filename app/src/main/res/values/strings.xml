@@ -18,4 +18,7 @@
     <string name="txtWelcome">Seja bem-vindo(a)!</string>
     <string name="txtBalance">O seu saldo atual é de:</string>
     <string name="txtBalanceNumber">0</string>
+
+    <!-- Menu -->
+    <string name="stringExit">Sair</string>
 </resources>
